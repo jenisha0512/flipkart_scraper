@@ -5,9 +5,6 @@ from urllib.parse import urlparse, urlunparse
 import requests
 from bs4 import BeautifulSoup
 
-
-# NEED to make sure that we get unique element from page
-# We will store tag name and class name
 key2css_selector = {
     "title": "span.B_NuCI",
     "brand": "span.G6XhRU",
