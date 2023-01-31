@@ -72,21 +72,20 @@ def url2product(request):
 
         url = clean_url(url)
 
-        count = (Product.objects.filter(url=url).count(),)
-        try:
-            if len(count) > 0:
-                # If already exists, asynchronously check and re-fetch if required
-                product = Product.objects.get(url=url)
-                response = model_to_dict(product)
-                response["images"] = [
-                    d.image.url for d in product.product_images.all()
-                ]
+        count = Product.objects.filter(url=url).count()
+        if count > 0:
+            # If already exists, asynchronously check and re-fetch if required
+            product = Product.objects.get(url=url)
+            response = model_to_dict(product)
+            response["images"] = [
+                d.image.url for d in product.product_images.all()
+            ]
 
-                if product.datetime_modified > timezone.now() - timedelta(
-                    days=7
-                ):
-                    product_upsert(url, product)
-        except  Product.DoesNotExist:
+            if product.datetime_modified < timezone.now() - timedelta(
+                days=7
+            ):
+                product_upsert(url, product)
+        else:
             product = Product()
             product_upsert(url, product)
             response = model_to_dict(product)

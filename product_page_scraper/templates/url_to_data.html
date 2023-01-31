@@ -35,7 +35,16 @@
         }
       })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+          let items = [];
+          for (let key in data) {
+            items.push(`<li id='${key}'>${data[key]}</li>`);
+          }
+
+          let list = `<ul class='my-list'>${items.join("")}</ul>`;
+          document.body.innerHTML = list;
+    
+        })
         .catch(error => console.log(error));
     }
   </script>

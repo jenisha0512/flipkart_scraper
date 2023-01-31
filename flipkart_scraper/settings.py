@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-!jzs!&)2!q&_6np!lnx1zi)w&*nq%nnoz-7b%xz@7hvs3cse(j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "jenishafkscraper.pythonanywhere.com",
+    "127.0.0.1"
+]
 
 
 # Application definition
